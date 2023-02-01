@@ -10,7 +10,7 @@ const refs = {
     secondsSpan: document.querySelector('span[data-seconds]'),
 }
 
-refs.startButton.disabled = true;
+startButtonDisabled();
 refs.startButton.addEventListener('click', onStartButtonClick);
 
 const options = {
@@ -39,6 +39,7 @@ const timer = {
             const timeCounter = flatpInit.selectedDates[0] - Date.now();
             if (timeCounter < 0) {
                 clearInterval(this.timerId);
+                startButtonDisabled();
                 return;
             }
             pageTimerUpdater(convertMs(timeCounter));
@@ -73,4 +74,8 @@ function convertMs(ms) {
 
 function addLeadingZero(value) {
     return String(value).padStart(2, '0');
+}
+
+function startButtonDisabled() {
+    refs.startButton.disabled = true;
 }
